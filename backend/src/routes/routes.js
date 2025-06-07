@@ -1,47 +1,31 @@
-import express from 'express';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import { registerUser, loginUser, getsearchHistory, getcurrentUser, logoutUser } from './controllers/user.controller.js';
+import express from "express";
+import { registerUser, loginUser, getsearchHistory, getcurrentUser, logoutUser } from '../controllers/user.controller.js';
 import { searched } from './controllers/search.controller.js';
-import { verifyJWT } from './middlewares/auth.middleware.js';
+import { verifyJWT } from "../middlewares/verifyJWT.js";
 
-const app = express();
-
-app.use(cors({
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-}));
-
-app.use(express.json());
-app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }));
+const router = express.Router();
 
 
-app.get('/', (req, res) => {
-    res.send('Welcome to the backend server!');
-});
-
-app.post('/api/data', (req, res) => {
+router.post('/api/data', (req, res) => {
     // Handle POST request to /api/data
     req.body = req.body || {}; // Ensure req.body is defined
     console.log('Received data:', req.body);
     res.json({ message: 'Data received successfully!' });
 });
 
-app.post('/api/register', registerUser);
-app.post('/api/login', loginUser);
-app.post('/api/search',verifyJWT, searched);
-app.get('/api/currentUser', verifyJWT,getcurrentUser);
-app.get('/api/searchHistory', verifyJWT, getsearchHistory);
-app.get('/api/logout', verifyJWT, logoutUser)
+router.post('/api/register', registerUser);
+router.post('/api/login', loginUser);
+router.post('/api/search',verifyJWT, searched);
+router.get('/api/getcurrentUser', verifyJWT,getcurrentUser);
+router.get('/api/searchHistory', verifyJWT, getsearchHistory)
+router.get('/api/logout', verifyJWT, logoutUser)
 
 
 const graphhopperKey = "6938c1a9-4599-466e-9be6-38541a31ba8b";
 const tomtomKey = "eBXfQnGsEtybJGPcFdG1VKTSBk8LCqIE";
 
 // Geocode
-app.get("/api/geocode", async (req, res) => {
+router.get("/api/geocode", async (req, res) => {
   const query = req.query.q;
   try {
     const response = await fetch(
@@ -55,7 +39,7 @@ app.get("/api/geocode", async (req, res) => {
 });
 
 // Autocomplete
-app.get("/api/autocomplete", async (req, res) => {
+router.get("/api/autocomplete", async (req, res) => {
   const query = req.query.q;
   try {
     const response = await fetch(
@@ -69,7 +53,7 @@ app.get("/api/autocomplete", async (req, res) => {
 });
 
 // Route
-app.post("/api/route", async (req, res) => {
+router.post("/api/route", async (req, res) => {
   const { start, end, vehicle, routePref } = req.body;
 
   const weighting = routePref === "shortest" ? "shortest" : "fastest";
@@ -86,4 +70,4 @@ app.post("/api/route", async (req, res) => {
   }
 });
 
-export default app;
+export default router;
