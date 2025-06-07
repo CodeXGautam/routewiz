@@ -42,9 +42,25 @@ const Navbar = (props) => {
                 {isloggedIn &&
                     <NavLink to='/' onClick={() => setLogin(false)}>
                         <div className='text-md font-semibold bg-sky-100 hover:bg-sky-200 rounded-lg p-2 text-gray-900'
-                            onClick={() => {
-                                toast.error('Logged Out')
-                                navigate("/")
+                            onClick={async() => {
+                                try {
+                                    const response = await fetch("http://localhost:4000/api/logout", {
+                                        method: "GET",
+                                        credentials: "include",
+                                    });
+
+                                    const data = await response.json();
+
+                                    if (data.message === "logged out successfully") {
+                                        toast.success("Logged Out");
+                                        navigate("/");
+                                    } else {
+                                        toast.error("Something went wrong");
+                                    }
+                                } catch (error) {
+                                    toast.error("Logout failed");
+                                    console.error(error);
+                                }
                             }}>Log Out </div>
                     </NavLink>
                 }
