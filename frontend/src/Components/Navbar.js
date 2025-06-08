@@ -61,7 +61,7 @@ const Navbar = (props) => {
                             </NavLink>
 
                             <NavLink to='/' onClick={() => setLogin(false)}>
-                                <div className='text-md font-semibold bg-sky-100 hover:bg-sky-200 rounded-lg p-2 text-gray-900'
+                                <div className='text-md font-semibold hover:bg-gray-100 rounded-lg p-2 text-red-600'
                                     onClick={async () => {
                                         try {
                                             const response = await fetch("http://localhost:4000/api/logout", {
@@ -101,7 +101,7 @@ const Navbar = (props) => {
 
             {isloggedIn && 
                 <div className={icon ? 'block' : 'hidden'}>
-                <div className='flex flex-col gap-3 mt-3 bg-white items-center shadow-lg sm:hidden md:hidden lg:hidden z-[1000] 
+                <div className='flex flex-col gap-4 mt-3 bg-white items-center shadow-lg sm:hidden md:hidden lg:hidden z-[1000] 
             absolute top-[25px] right-[0px] p-10' id='menu' >
                     {isloggedIn &&
                         <NavLink to='/home'>
@@ -124,7 +124,7 @@ const Navbar = (props) => {
 
                     {isloggedIn &&
                         <NavLink to='/' onClick={() => setLogin(false)}>
-                            <div className='text-lg font-semibold text-red-500 bg-sky-100 hover:bg-sky-200 rounded-lg p-2 text-gray-900'
+                            <div className='text-lg font-semibold text-red-500 bg-sky-100 hover:bg-gray-100 rounded-lg p-2 text-red-600'
                                 onClick={async () => {
                                     try {
                                         const response = await fetch("http://localhost:4000/api/logout", {

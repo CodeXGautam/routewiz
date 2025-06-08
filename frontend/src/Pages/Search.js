@@ -197,7 +197,7 @@ const Search = (props) => {
           )}
         </div>
 
-        <div className="relative">
+        <div className="">
           <input
             placeholder="End location"
             value={endQuery}

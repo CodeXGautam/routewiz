@@ -35,18 +35,18 @@ const Dltraffic = () => {
       </MapContainer>
 
       {/* Traffic Legend */}
-      <div className="absolute bottom-4 left-4 bg-white rounded-xl shadow-lg p-4 text-sm z-[1000]">
-        <h4 className="font-bold mb-2">Traffic Legend</h4>
-        <div className="flex items-center mb-1">
-          <span className="inline-block w-4 h-4 bg-red-600 rounded-full mr-2"></span>
+      <div className="absolute hidden sm:flex md:flex lg:flex bottom-2 left-4 bg-white rounded-xl  flex-col gap-2 shadow-lg p-4 text-sm z-[1000] w-[12%] min-w-[132px]">
+        <h4 className="font-bold">Traffic Legend</h4>
+        <div className="flex items-center gap-2">
+          <span className="inline-block w-[12px] h-[12px] bg-red-600 rounded-full"></span>
           Major Delay
         </div>
-        <div className="flex items-center mb-1">
-          <span className="inline-block w-4 h-4 bg-yellow-400 rounded-full mr-2"></span>
+        <div className="flex items-center gap-2">
+          <span className="inline-block w-[12px] h-[12px] bg-yellow-400 rounded-full"></span>
           Minor Delay
         </div>
-        <div className="flex items-center">
-          <span className="inline-block w-4 h-4 bg-green-600 rounded-full mr-2"></span>
+        <div className="flex items-center gap-2">
+          <span className="inline-block w-[12px] h-[12px] bg-green-600 rounded-full"></span>
           No Delay
         </div>
       </div>
