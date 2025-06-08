@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import User from "../models/user.model.js";
+import jwt from 'jsonwebtoken';
 
 const generateAccessandRefreshToken = async (userId) => {
   try {
@@ -58,7 +59,6 @@ const registerUser = async (req, res) => {
     const options = {
       httpOnly: true,
       secure: false,
-      sameSite: "Strict",
     };
 
     res.status(201)
@@ -96,7 +96,6 @@ const loginUser = async (req, res) => {
     const options = {
       httpOnly: true,
       secure: false,
-      sameSite: "Strict",
     };
 
     return res.status(200)
@@ -144,16 +143,75 @@ const logoutUser = async (req, res) => {
     user.refreshToken = undefined;
     await user.save({ validateBeforeSave: false });
 
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
 
-    return res.status(200).json({ message: "Logged out successfully" });
+    const options = {
+      httpOnly: true,
+      secure: false,
+    };
+
+    return res.status(200)
+      .clearCookie("accessToken", options)
+      .clearCookie("refreshToken", options)
+      .json({ message: "Logged out successfully" });
+
 
   } catch (error) {
     console.error("Error logging out user:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+const refreshAccessToken = async(req,res) =>{
+    const incomingRefreshToken = req.cookies?.refreshToken;
+    
+    if(!incomingRefreshToken) {
+      res.status(401)
+      .json({
+        message: "Token not found"
+      })
+    }
+    const decodedToken = jwt.verify(incomingRefreshToken,process.env.REFRESH_TOKEN_SECRET);
+
+    if(!decodedToken){
+      res.status(401)
+      .json({
+        message:"Unauthorized token"
+      })
+    }
+
+    const user = User.findById(decodedToken._id) 
+
+    if(!user){
+      res.status(409)
+      .json({
+        message:"Unauthorized user"
+      })
+    }
+
+    if(!(incomingRefreshToken === user?.refreshToken)){
+      res.status(401)
+      .json({
+        message:"Unauthorized user request"
+      })
+    }
+
+      const options = {
+      httpOnly: true,
+      secure: false,
+    };
+
+    const {accessToken, newRefreshToken} = generateAccessandRefreshToken(user._id)
+
+    res.status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken",newRefreshToken, options)
+    .json({
+      message:"AccessToken refreshed",
+      accessToken,
+      refreshToken:newRefreshToken
+    })
+
+}
 
 const getsearchHistory = async (req, res) => {
   try {

@@ -28,10 +28,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 6,
     },
-    searchHistory: {
+    searchHistory:[ {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Search",
-    },
+    }],
 
     refreshToken:{
         type:String
@@ -50,8 +50,8 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 }
 
 
-userSchema.methods.generateAccessToken = function () {
-  return jwt.sign(
+userSchema.methods.generateAccessToken = async function () {
+  return await jwt.sign(
     {
       _id: this._id,
       email: this.email,
@@ -64,8 +64,8 @@ userSchema.methods.generateAccessToken = function () {
   );
 };
 
-userSchema.methods.generateRefreshToken = function () {
-  return jwt.sign(
+userSchema.methods.generateRefreshToken = async function () {
+  return await jwt.sign(
     {
       _id: this._id,
     },
