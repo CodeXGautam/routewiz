@@ -170,8 +170,8 @@ const Search = (props) => {
   return (
     <div className="relative w-[100%] h-screen">
      
-      <div className="absolute top-[20px] right-[10px] z-[1000] bg-white p-4 rounded-lg shadow-lg max-w-[300px] min-w-[180px] 
-      hidden sm:w-[34%] sm:flex-col sm:flex md:w-[34%] md:flex-col md:flex lg:w-[34%] lg:flex-col lg:flex overflow-y-auto">
+      <div className="absolute top-[10px] right-[10px] z-[1000] bg-white p-4 rounded-lg shadow-lg max-w-[300px] min-w-[150px] 
+      w-[17%] sm:w-[34%] sm:flex-col sm:flex md:w-[34%] md:flex-col md:flex lg:w-[34%] lg:flex-col lg:flex overflow-y-auto">
         <div>
           <input
             placeholder="Start location"

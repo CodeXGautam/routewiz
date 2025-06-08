@@ -14,7 +14,7 @@ const Profile = () => {
         try {
             const res = await fetch('http://localhost:4000/api/currentUser', {
                 method: 'GET',
-                credentials: 'include', // important to send cookies
+                credentials: 'include', 
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -93,7 +93,7 @@ const Profile = () => {
         <div className='flex flex-col items-center w-full h-full mt-5 gap-5'>
             <div className='text-4xl font-bold text-blue-400'>Profile</div>
             <div className='text-md font-semibold flex flex-col w-[70%] space-y-5 shadow-lg border-2 px-6 py-3 rounded-md'>
-                <div className='w-[170px] h-[170px] min-w-[180px] rounded-full bg-gray-200 mx-auto'></div>
+                <div className='w-[150px] h-[150px] min-w-[120px] rounded-full bg-gray-200 mx-auto'></div>
 
                 <div className='flex items-center gap-4'>
                     <span className='text-md sm:text-lg md:text-lg lg:text-xl text-gray-900'>Username:</span>
