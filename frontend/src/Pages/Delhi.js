@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import Dltraffic from '../Components/Dltraffic'
 import img1 from '../images/congestion.png'
-
+import { GoTriangleDown } from "react-icons/go";
+import { GoTriangleUp } from "react-icons/go";
+import { FaCircle } from "react-icons/fa6";
 
 
 
@@ -18,6 +20,9 @@ const Delhi = () => {
 
     const [date, setDate] = useState('');
 
+    const [showAnswer, setShowAnswer] = useState(false);
+    const[speedAnswer, setSpeedAnswer] = useState(false);
+    const[calculatedAnswer, setCalculatedAnswer] = useState(false);
 
     const url = `${api_url}${date} ${timestamp.time}`
     console.log(url);
@@ -56,6 +61,21 @@ const Delhi = () => {
         console.log('I am clicked')
     }
 
+    const answer1Handler = () => {
+        console.log("i am clicked")
+        setShowAnswer(!showAnswer)
+    }
+
+    const answer2Handler = () => {
+        console.log("i am clicked")
+        setSpeedAnswer(!speedAnswer)
+    }
+
+    const answer3Handler = () => {
+        console.log("i am clicked")
+        setCalculatedAnswer(!calculatedAnswer)
+    }
+
     return (
         <div className='flex flex-col items-center mt-3 gap-8 mb-5'>
             <div className='w-[95%] h-[34vw] min-h-[220px]'><Dltraffic /></div>
@@ -67,17 +87,17 @@ const Delhi = () => {
 
             <div className='flex flex-col gap-2 text-sm sm:text-md md:text-xl lg:text-xl text-gray-500 mt-8 min-w-[200px] max-w-[900px] w-[50%]'>
                 <div className='flex gap-2 w-[100%]'>
-                    <span className='bg-red-600 w-[10px] h-[10px] rounded-full'></span>
+                     <FaCircle className='text-[10px]' color='red' />
                     <span className='w-[90%] flex items-center justify-center'>Congestion and Speed Values are predicted on the basis of previous dataset.</span>
                 </div>
 
                 <div className='flex gap-2 w-[100%]'>
-                    <span className='bg-red-600 w-[10px] h-[10px] rounded-full'></span>
+                     <FaCircle className='text-[10px]' color='red' />
                     <span className='w-[90%] flex '>These may or may not be 100% accurate.</span>
                 </div>
 
                 <div className='flex gap-2 w-[100%]'>
-                    <span className='bg-red-600 w-[10px] h-[10px] rounded-full'></span>
+                     <FaCircle className='text-[10px]' color='red' />
                     <span className='w-[90%] flex'>One can predict congestion factor and speed on their desired date and time by simply putting
                         date and time below and click on GET.</span>
                 </div>
@@ -123,8 +143,61 @@ const Delhi = () => {
                 <h1 className='text-xl sm:text-2xl md:text-3xl lg:text-3xl font-semibold'>Congestion Level Over Time</h1>
                 <img src={img1} width={1100} alt='' />
             </div>
+
+            <div className='flex flex-col gap-4 shadow-lg border rounded-md w-[100%] justify-center items-center mt-4 mb-5 p-2'>
+                <h2 className='text-lg sm:text-2xl md:text-2xl lg:text-2xl text-gray-950'>Related Questions</h2>
+                <div className='w-[90%] flex flex-col gap-3'>
+                    <div onClick={answer1Handler} className='cursor-pointer flex flex-col gap-2 w-[100%] shadow-lg border rounded-md p-2'>
+                        <div className='flex justify-between items-center w-[100%] text-md sm:text-md md:text-lg lg:text-lg'>
+                            <span className='flex items-center gap-2 '> <FaCircle className='text-[10px]' color='red' />
+                                What is Congestion Factor ?
+                            </span>
+                            <span>{showAnswer ? (<GoTriangleUp />) : (<GoTriangleDown />)}</span>
+                        </div>
+                        <span className={showAnswer ? "block" : "hidden"}>
+                            <span className='text-sm'>
+                                ↪ Congestion factor is a way to measure how crowded a road is by comparing the
+                                time it takes to travel during
+                                traffic with the time it takes when there’s no traffic
+                                <br />
+                                ↪ If the factor is 1, traffic is smooth. The higher the number, the worse the traffic.
+                            </span>
+                        </span>
+                    </div>
+
+                    <div onClick={answer2Handler} className='cursor-pointer flex flex-col gap-2 w-[100%] shadow-lg border rounded-md p-2'>
+                        <div className='flex justify-between items-center w-[100%] text-md sm:text-md md:text-lg lg:text-lg'>
+                            <span className='flex items-center gap-2 '> <FaCircle className='text-[10px]' color='red' />
+                                What is Current Speed ?
+                            </span>
+                            <span>{speedAnswer ? (<GoTriangleUp />) : (<GoTriangleDown />)}</span>
+                        </div>
+                        <span className={speedAnswer ? "block" : "hidden"}>
+                            <span className='text-sm'>
+                                ↪ Current speed is the actual speed at which vehicles are moving on a road at a specific moment.
+                                <br />
+                                ↪ It changes with traffic conditions — lower during heavy traffic and higher when roads are clear.
+                            </span>
+                        </span>
+                    </div>
+
+                    <div onClick={answer3Handler} className='cursor-pointer flex flex-col gap-2 w-[100%] shadow-lg border rounded-md p-2'>
+                        <div className='flex justify-between items-center w-[100%] text-md sm:text-md md:text-lg lg:text-lg'>
+                            <span className='flex items-center gap-2 '> <FaCircle className='text-[10px]' color='red' />
+                                How is the congestion Factor calculated ?
+                            </span>
+                            <span>{calculatedAnswer ? (<GoTriangleUp />) : (<GoTriangleDown />)}</span>
+                        </div>
+                        <span className={calculatedAnswer ? "block" : "hidden"}>
+                            <span className='text-sm'>
+                                ↪ Congestion Factor = (current speed - freeflow speed) / (current speed + freeflow speed)      
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
     )
-} 
+}
 
 export default Delhi;
