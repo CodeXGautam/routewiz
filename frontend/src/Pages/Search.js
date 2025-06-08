@@ -163,7 +163,7 @@ const Search = (props) => {
       }
     };
 
-    const timeout = setTimeout(fetchSuggestions, 300);
+    const timeout = setTimeout(fetchSuggestions, 3000);
     return () => clearTimeout(timeout);
   }, [startQuery, endQuery]);
 

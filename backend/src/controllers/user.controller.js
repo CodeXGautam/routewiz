@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import User from "../models/user.model.js";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
+// Token generator helper
 const generateAccessandRefreshToken = async (userId) => {
   try {
     const user = await User.findById(userId);
@@ -16,11 +17,12 @@ const generateAccessandRefreshToken = async (userId) => {
       refreshToken
     };
   } catch (err) {
-    console.error("Error generating tokens:", err);
+    console.error("Error generating tokens:", err.message);
     throw new Error("Token generation failed");
   }
 };
 
+// User registration
 const registerUser = async (req, res) => {
   try {
     const { firstName, lastName, userName, email, password } = req.body;
@@ -56,6 +58,7 @@ const registerUser = async (req, res) => {
     const { accessToken, refreshToken } = await generateAccessandRefreshToken(newUser._id);
     const user = await User.findById(newUser._id).select("-password");
 
+    console.log(accessToken, refreshToken) 
     const options = {
       httpOnly: true,
       secure: false,
@@ -67,11 +70,12 @@ const registerUser = async (req, res) => {
       .json({ user, message: "User registered successfully" });
 
   } catch (error) {
-    console.error("Error registering user:", error);
+    console.error("Error registering user:", error.message);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
 
+// Login
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -91,6 +95,7 @@ const loginUser = async (req, res) => {
     }
 
     const { accessToken, refreshToken } = await generateAccessandRefreshToken(user._id);
+     console.log(accessToken, refreshToken) 
     const loggedInUser = await User.findById(user._id).select("-password -refreshToken");
 
     const options = {
@@ -98,22 +103,25 @@ const loginUser = async (req, res) => {
       secure: false,
     };
 
-    return res.status(200)
+
+
+    res.status(200)
       .cookie("accessToken", accessToken, options)
       .cookie("refreshToken", refreshToken, options)
       .json({
-        user: loggedInUser,
         accessToken,
         refreshToken,
+        user: loggedInUser,
         message: "Login successful"
       });
 
   } catch (error) {
-    console.error("Error logging in user:", error);
+    console.error("Error logging in user:", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
 };
 
+// Get current user
 const getcurrentUser = async (req, res) => {
   try {
     const user = req.user;
@@ -128,11 +136,12 @@ const getcurrentUser = async (req, res) => {
     });
 
   } catch (error) {
-    console.error("Error fetching current user:", error);
+    console.error("Error fetching current user:", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
 };
 
+// Logout
 const logoutUser = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
@@ -142,7 +151,6 @@ const logoutUser = async (req, res) => {
 
     user.refreshToken = undefined;
     await user.save({ validateBeforeSave: false });
-
 
     const options = {
       httpOnly: true,
@@ -154,65 +162,58 @@ const logoutUser = async (req, res) => {
       .clearCookie("refreshToken", options)
       .json({ message: "Logged out successfully" });
 
-
   } catch (error) {
-    console.error("Error logging out user:", error);
+    console.error("Error logging out user:", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
 };
 
-const refreshAccessToken = async(req,res) =>{
+// Refresh access token
+const refreshAccessToken = async (req, res) => {
+  try {
     const incomingRefreshToken = req.cookies?.refreshToken;
     
-    if(!incomingRefreshToken) {
-      res.status(401)
-      .json({
-        message: "Token not found"
-      })
-    }
-    const decodedToken = jwt.verify(incomingRefreshToken,process.env.REFRESH_TOKEN_SECRET);
-
-    if(!decodedToken){
-      res.status(401)
-      .json({
-        message:"Unauthorized token"
-      })
+    if (!incomingRefreshToken) {
+      return res.status(401).json({ message: "Token not found" });
     }
 
-    const user = User.findById(decodedToken._id) 
+    const decodedToken = jwt.verify(
+      incomingRefreshToken,
+      process.env.REFRESH_TOKEN_SECRET
+    );
 
-    if(!user){
-      res.status(409)
-      .json({
-        message:"Unauthorized user"
-      })
+    const user = await User.findById(decodedToken._id);
+    if (!user) {
+      return res.status(401).json({ message: "Unauthorized user" });
     }
 
-    if(!(incomingRefreshToken === user?.refreshToken)){
-      res.status(401)
-      .json({
-        message:"Unauthorized user request"
-      })
+    if (incomingRefreshToken !== user.refreshToken) {
+      return res.status(401).json({ message: "Token expired or already used" });
     }
 
-      const options = {
+    const { accessToken, refreshToken: newRefreshToken } = await generateAccessandRefreshToken(user._id);
+
+    const options = {
       httpOnly: true,
       secure: false,
     };
 
-    const {accessToken, newRefreshToken} = generateAccessandRefreshToken(user._id)
-
     res.status(200)
-    .cookie("accessToken", accessToken, options)
-    .cookie("refreshToken",newRefreshToken, options)
-    .json({
-      message:"AccessToken refreshed",
-      accessToken,
-      refreshToken:newRefreshToken
-    })
+      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", newRefreshToken, options)
+      .json({
+        message: "Access token refreshed",
+        accessToken,
+        refreshToken: newRefreshToken
+      });
 
-}
+  } catch (error) {
+    console.error("Refresh token error:", error.message);
+    res.status(403).json({ message: "Invalid or expired refresh token" });
+  }
+};
 
+// Search history
 const getsearchHistory = async (req, res) => {
   try {
     const history = await User.aggregate([
@@ -240,7 +241,7 @@ const getsearchHistory = async (req, res) => {
     res.status(200).json({ searchHistory: history[0]?.searchHistory || [] });
 
   } catch (error) {
-    console.error("Error fetching search history:", error);
+    console.error("Error fetching search history:", error.message);
     res.status(500).json({ message: "Failed to fetch search history" });
   }
 };
@@ -250,5 +251,6 @@ export {
   loginUser,
   getsearchHistory,
   getcurrentUser,
-  logoutUser
+  logoutUser,
+  refreshAccessToken
 };

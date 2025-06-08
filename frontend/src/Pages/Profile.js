@@ -12,7 +12,7 @@ const Profile = () => {
 
     const getProfile = async () => {
         try {
-            const res = fetch('http://localhost:4000/api/currentUser', {
+            const res = await fetch('http://localhost:4000/api/currentUser', {
                 method: 'GET',
                 credentials: 'include', // important to send cookies
                 headers: {
