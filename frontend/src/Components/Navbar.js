@@ -31,30 +31,100 @@ const Navbar = (props) => {
                     </NavLink>
                 </div>
 
-                <div className='flex justify-center gap-[2vw] items-center
-            hidden sm:flex md:flex lg:flex'>
+                <div >
+                    {!isloggedIn &&
+                        <div className='flex gap-[2vw] items-center'>
+                            <NavLink to='/login'>
+                                <div className='text-md font-semibold  hover:bg-sky-100 rounded-lg p-2 text-gray-900'>Login</div>
+                            </NavLink>
+
+                            <NavLink to='/register'>
+                                <div className='text-md font-semibold  hover:bg-sky-100 rounded-lg p-2 text-gray-900'>Register</div>
+                            </NavLink>
+                        </div>
+                    }
+                </div>
+
+                
+                    {isloggedIn &&
+                        <div className='flex gap-[2vw] items-center hidden sm:flex md:flex lg:flex'>
+                            <NavLink to='/home'>
+                                <div className='text-md font-semibold'>Home</div>
+                            </NavLink>
+
+                            <NavLink to='/search'>
+                                <div className='text-md font-semibold'>Search</div>
+                            </NavLink>
+
+                            <NavLink to='/profile'>
+                                <div className='text-md font-semibold'>Profile</div>
+                            </NavLink>
+
+                            <NavLink to='/' onClick={() => setLogin(false)}>
+                                <div className='text-md font-semibold bg-sky-100 hover:bg-sky-200 rounded-lg p-2 text-gray-900'
+                                    onClick={async () => {
+                                        try {
+                                            const response = await fetch("http://localhost:4000/api/logout", {
+                                                method: "GET",
+                                                credentials: "include",
+                                            });
+
+                                            const data = await response.json();
+
+                                            if (data.message === "logged out successfully") {
+                                                toast.success("Logged Out");
+                                                navigate("/");
+                                            } else {
+                                                toast.error("Something went wrong");
+                                            }
+                                        } catch (error) {
+                                            toast.error("Logout failed");
+                                            console.error(error);
+                                        }
+                                    }}>Log Out </div>
+                            </NavLink>
+                        </div>
+                    }
+
+
+
+
+                {isloggedIn &&
+                    <div className='flex sm:hidden md:hidden lg:hidden'
+                        onClick={clickHandler}>
+                        {
+                            icon ? (<RxCross2 />) : (<TiThMenu />)
+                        }
+                    </div>
+                }
+            </div>
+
+            {isloggedIn && 
+                <div className={icon ? 'block' : 'hidden'}>
+                <div className='flex flex-col gap-3 mt-3 bg-white items-center shadow-lg sm:hidden md:hidden lg:hidden z-[1000] 
+            absolute top-[25px] right-[0px] p-10' id='menu' >
                     {isloggedIn &&
                         <NavLink to='/home'>
-                            <div className='text-md font-semibold'>Home</div>
+                            <div className='text-lg font-semibold'>Home</div>
                         </NavLink>
                     }
 
                     {isloggedIn &&
                         <NavLink to='/search'>
-                            <div className='text-md font-semibold'>Search</div>
+                            <div className='text-lg font-semibold'>Search</div>
                         </NavLink>
 
                     }
 
                     {isloggedIn &&
                         <NavLink to='/profile'>
-                            <div className='text-md font-semibold'>Profile</div>
+                            <div className='text-lg font-semibold'>Profile</div>
                         </NavLink>
                     }
 
                     {isloggedIn &&
                         <NavLink to='/' onClick={() => setLogin(false)}>
-                            <div className='text-md font-semibold bg-sky-100 hover:bg-sky-200 rounded-lg p-2 text-gray-900'
+                            <div className='text-lg font-semibold text-red-500 bg-sky-100 hover:bg-sky-200 rounded-lg p-2 text-gray-900'
                                 onClick={async () => {
                                     try {
                                         const response = await fetch("http://localhost:4000/api/logout", {
@@ -77,91 +147,10 @@ const Navbar = (props) => {
                                 }}>Log Out </div>
                         </NavLink>
                     }
-
-                    {!isloggedIn &&
-                        <NavLink to='/login'>
-                            <div className='text-md font-semibold  hover:bg-sky-100 rounded-lg p-2 text-gray-900'>Login</div>
-                        </NavLink>
-                    }
-
-                    {!isloggedIn &&
-                        <NavLink to='/register'>
-                            <div className='text-md font-semibold  hover:bg-sky-100 rounded-lg p-2 text-gray-900'>Register</div>
-                        </NavLink>
-                    }
                 </div>
-
-                <div className='flex sm:hidden md:hiddden lg:hidden'
-                    onClick={clickHandler}>
-                    {
-                        icon ? (<RxCross2 />) : (<TiThMenu />)
-                    }
-                </div>
-
-
             </div>
-
-            <div className={icon? 'block' : 'hidden'}>
-            <div className='flex flex-col gap-3 mt-3 bg-white items-center shadow-lg sm:hidden md:hiddden lg:hidden z-[1000] 
-            absolute top-[25px] right-[0px] p-10' id='menu' >
-                {isloggedIn &&
-                    <NavLink to='/home'>
-                        <div className='text-lg font-semibold'>Home</div>
-                    </NavLink>
-                }
-
-                {isloggedIn &&
-                    <NavLink to='/search'>
-                        <div className='text-lg font-semibold'>Search</div>
-                    </NavLink>
-
-                }
-
-                {isloggedIn &&
-                    <NavLink to='/profile'>
-                        <div className='text-lg font-semibold'>Profile</div>
-                    </NavLink>
-                }
-
-                {isloggedIn &&
-                    <NavLink to='/' onClick={() => setLogin(false)}>
-                        <div className='text-lg font-semibold text-red-500 bg-sky-100 hover:bg-sky-200 rounded-lg p-2 text-gray-900'
-                            onClick={async () => {
-                                try {
-                                    const response = await fetch("http://localhost:4000/api/logout", {
-                                        method: "GET",
-                                        credentials: "include",
-                                    });
-
-                                    const data = await response.json();
-
-                                    if (data.message === "logged out successfully") {
-                                        toast.success("Logged Out");
-                                        navigate("/");
-                                    } else {
-                                        toast.error("Something went wrong");
-                                    }
-                                } catch (error) {
-                                    toast.error("Logout failed");
-                                    console.error(error);
-                                }
-                            }}>Log Out </div>
-                    </NavLink>
-                }
-
-                {!isloggedIn &&
-                    <NavLink to='/login'>
-                        <div className='text-lg font-semibold  hover:bg-sky-100 rounded-lg p-2 text-gray-900'>Login</div>
-                    </NavLink>
-                }
-
-                {!isloggedIn &&
-                    <NavLink to='/register'>
-                        <div className='text-lg font-semibold  hover:bg-sky-100 rounded-lg p-2 text-gray-900'>Register</div>
-                    </NavLink>
-                }
-            </div>
-            </div>
+            }
+            
         </div>
     )
 }
