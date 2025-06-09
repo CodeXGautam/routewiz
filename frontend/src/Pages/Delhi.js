@@ -26,6 +26,7 @@ const Delhi = () => {
 
     const url = `${api_url}${date} ${timestamp.time}`
     console.log(url);
+		
 
     async function fetchdata() {
         try {
@@ -42,6 +43,7 @@ const Delhi = () => {
         }
     }
 
+
     const changeHandler = (event) => {
         setTimestamp((prev) => {
             return {
@@ -57,7 +59,7 @@ const Delhi = () => {
         const [year, month, day] = timestamp.date.split('-');
         const newFormat = `${day}-${month}-${year}`;
         setDate(newFormat);
-        fetchdata();
+	    fetchdata();
         console.log('I am clicked')
     }
 

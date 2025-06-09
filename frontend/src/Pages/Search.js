@@ -44,6 +44,7 @@ const fetchRouteFromBackend = async (start, end, vehicle, routePref) => {
   const res = await fetch("http://localhost:4000/api/route", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
+	credentials: 'include',
     body: JSON.stringify({ start, end, vehicle, routePref }),
   });
   return res.json();
@@ -119,7 +120,8 @@ const Search = (props) => {
       const saveRes = await fetch("http://localhost:4000/api/search", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ start: startQuery, end: endQuery, vehicle, routePref, user }),
+	credentials: 'include',       
+ body: JSON.stringify({ start: startQuery, end: endQuery, vehicle, routePref, user }),
       });
       const saveData = await saveRes.json();
 

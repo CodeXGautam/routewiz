@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 
-const Profile = () => {
+const Profile = (props) => {
+
+	 const setLogin = props.setLogin;	
+
     const [userName, setUserName] = useState();
     const [fullName, setFullName] = useState();
     const [email, setEmail] = useState();
@@ -46,9 +49,10 @@ const Profile = () => {
 
             const data = await response.json();
 
-            if (data.message === "logged out successfully") {
+            if (data.message === "Logged out successfully") {
                 toast.success("Logged Out");
                 navigate("/");
+		setLogin(false);
             } else {
                 toast.error("Something went wrong");
             }
@@ -102,12 +106,12 @@ const Profile = () => {
 
                 <div className='flex items-center gap-4'>
                     <span className='text-md sm:text-lg md:text-lg lg:text-xl text-gray-900'>Fullname:</span>
-                    <span>{fullName}</span>
+                    <span  className='text-blue-500'>{fullName}</span>
                 </div>
 
                 <div className='flex items-center gap-4'>
                     <span className='text-md sm:text-lg md:text-lg lg:text-xl text-gray-900'>Email:</span>
-                    <span>{email}</span>
+                    <span className='text-blue-500'>{email}</span>
                 </div>
 
                 <div className='flex gap-3 items-center'>

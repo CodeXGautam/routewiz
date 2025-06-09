@@ -46,7 +46,7 @@ const Login = (props) => {
                 method: 'POST',  // // Adjust the URL to your backend endpoint   
                 headers: {
                     'Content-Type': 'application/json'
-                },
+                },credentials: 'include',
                 body: JSON.stringify(loginData)
             })
                 .then(response => response.json())

@@ -39,7 +39,7 @@ function App() {
         <Route path='/search' element={<Search city={city}/>} />
        }
         { isloggedIn &&
-        <Route path='/profile' element={<Profle />} />
+        <Route path='/profile' element={<Profle setLogin={setLogin} />} />
        }
         { isloggedIn &&
         <Route path='/delhi' element={<Delhi />} />

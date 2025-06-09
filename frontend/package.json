@@ -26,7 +26,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "set PORT=4000 && react-scripts start",
+
+    "start": "PORT=4000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -54,5 +55,5 @@
   "devDependencies": {
     "tailwindcss": "^3.4.17"
   },
-  "homepage": "https://CodeXGautam.github.io/Routewizard"
+  "homepage": "."
 }

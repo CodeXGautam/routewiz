@@ -55,6 +55,7 @@ const Register = (props) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
+		credentials: 'include',
                 body: JSON.stringify(registerData)
             })
                 .then(response => response.json())

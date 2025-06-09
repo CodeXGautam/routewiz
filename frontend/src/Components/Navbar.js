@@ -60,7 +60,7 @@ const Navbar = (props) => {
                                 <div className='text-md font-semibold'>Profile</div>
                             </NavLink>
 
-                            <NavLink to='/' onClick={() => setLogin(false)}>
+                            <NavLink>
                                 <div className='text-md font-semibold hover:bg-gray-100 rounded-lg p-2 text-red-600'
                                     onClick={async () => {
                                         try {
@@ -71,9 +71,10 @@ const Navbar = (props) => {
 
                                             const data = await response.json();
 
-                                            if (data.message === "logged out successfully") {
+                                            if (data.message === "Logged out successfully") {
                                                 toast.success("Logged Out");
                                                 navigate("/");
+						setLogin(false);
                                             } else {
                                                 toast.error("Something went wrong");
                                             }
@@ -123,7 +124,7 @@ const Navbar = (props) => {
                     }
 
                     {isloggedIn &&
-                        <NavLink to='/' onClick={() => setLogin(false)}>
+                        <NavLink>
                             <div className='text-lg font-semibold text-red-500 bg-sky-100 hover:bg-gray-100 rounded-lg p-2 text-red-600'
                                 onClick={async () => {
                                     try {
@@ -134,9 +135,10 @@ const Navbar = (props) => {
 
                                         const data = await response.json();
 
-                                        if (data.message === "logged out successfully") {
+                                        if (data.message === "Logged out successfully") {
                                             toast.success("Logged Out");
-                                            navigate("/");
+                                   		 navigate("/");
+						 setLogin(false);
                                         } else {
                                             toast.error("Something went wrong");
                                         }
