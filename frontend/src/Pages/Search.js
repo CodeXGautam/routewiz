@@ -61,8 +61,6 @@ const formatDuration = (milliseconds) => {
 };
 
 const Search = (props) => {
-
-
   const user = props.user;
 
   const [startQuery, setStartQuery] = useState("");
@@ -78,6 +76,9 @@ const Search = (props) => {
   const [distance, setDistance] = useState(null);
   const [duration, setDuration] = useState(null);
   const [zoomLevel, setZoomLevel] = useState(12);
+  const [startSelected, setStartSelected] = useState(false);
+  const [endSelected, setEndSelected] = useState(false);
+
   const mapRef = useRef();
 
   const handleSubmit = async () => {
@@ -104,11 +105,11 @@ const Search = (props) => {
           (1 -
             Math.log(
               Math.tan((center.lat * Math.PI) / 180) +
-                1 / Math.cos((center.lat * Math.PI) / 180)
+              1 / Math.cos((center.lat * Math.PI) / 180)
             ) /
-              Math.PI) /
-            2 *
-            2 ** z
+            Math.PI) /
+          2 *
+          2 ** z
         );
         setTrafficTilesUrl(`http://localhost:4000/api/traffic-tile/${z}/${x}/${y}`);
       } else {
@@ -118,7 +119,7 @@ const Search = (props) => {
       const saveRes = await fetch("http://localhost:4000/api/search", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ start: startQuery, end: endQuery, vehicle, routePref , user}),
+        body: JSON.stringify({ start: startQuery, end: endQuery, vehicle, routePref, user }),
       });
       const saveData = await saveRes.json();
 
@@ -142,20 +143,20 @@ const Search = (props) => {
           (prevUrl) => `${prevUrl.split("?refresh")[0]}?refresh=${new Date().getTime()}`
         );
       }
-    }, 30000);
+    }, 30);
     return () => clearInterval(interval);
   }, [routePref, trafficTilesUrl]);
 
   useEffect(() => {
     const fetchSuggestions = async () => {
-      if (startQuery.length > 2) {
+      if (startQuery.length > 2 && !startSelected) {
         const results = await nominatimAutocomplete(startQuery);
         setStartSuggestions(results);
       } else {
         setStartSuggestions([]);
       }
 
-      if (endQuery.length > 2) {
+      if (endQuery.length > 2 && !endSelected) {
         const results = await nominatimAutocomplete(endQuery);
         setEndSuggestions(results);
       } else {
@@ -165,21 +166,23 @@ const Search = (props) => {
 
     const timeout = setTimeout(fetchSuggestions, 3000);
     return () => clearTimeout(timeout);
-  }, [startQuery, endQuery]);
+  }, [startQuery, endQuery, startSelected, endSelected]);
 
   return (
     <div className="relative w-[100%] h-screen">
-     
       <div className="absolute top-[10px] right-[10px] z-[1000] bg-white p-4 rounded-lg shadow-lg max-w-[300px] min-w-[150px] 
-      w-[17%] sm:w-[34%] sm:flex-col sm:flex md:w-[34%] md:flex-col md:flex lg:w-[34%] lg:flex-col lg:flex overflow-y-auto">
+        w-[17%] sm:w-[34%] sm:flex-col sm:flex md:w-[34%] md:flex-col md:flex lg:w-[34%] lg:flex-col lg:flex overflow-y-auto">
         <div>
           <input
             placeholder="Start location"
             value={startQuery}
-            onChange={(e) => setStartQuery(e.target.value)}
+            onChange={(e) => {
+              setStartQuery(e.target.value);
+              setStartSelected(false);
+            }}
             className="mb-2 p-2 w-full border border-gray-300 rounded"
           />
-          {startSuggestions.length > 0 && (
+          {!startSelected && startSuggestions.length > 0 && (
             <ul className="absolute z-10 bg-white border w-full rounded shadow">
               {startSuggestions.map((s, idx) => (
                 <li
@@ -188,6 +191,7 @@ const Search = (props) => {
                   onClick={() => {
                     setStartQuery(s.display_name);
                     setStartSuggestions([]);
+                    setStartSelected(true);
                   }}
                 >
                   {s.display_name}
@@ -201,10 +205,13 @@ const Search = (props) => {
           <input
             placeholder="End location"
             value={endQuery}
-            onChange={(e) => setEndQuery(e.target.value)}
+            onChange={(e) => {
+              setEndQuery(e.target.value);
+              setEndSelected(false);
+            }}
             className="mb-2 p-2 w-full border border-gray-300 rounded"
           />
-          {endSuggestions.length > 0 && (
+          {!endSelected && endSuggestions.length > 0 && (
             <ul className="absolute z-10 bg-white border w-full rounded shadow">
               {endSuggestions.map((s, idx) => (
                 <li
@@ -213,6 +220,7 @@ const Search = (props) => {
                   onClick={() => {
                     setEndQuery(s.display_name);
                     setEndSuggestions([]);
+                    setEndSelected(true);
                   }}
                 >
                   {s.display_name}
@@ -256,15 +264,14 @@ const Search = (props) => {
           </div>
         )}
       </div>
+
       <MapContainer
         center={[28.6139, 77.209]}
         zoom={zoomLevel}
         className="w-full h-screen"
         whenCreated={(mapInstance) => {
           mapRef.current = mapInstance;
-          mapInstance.on("zoomend", () =>
-            setZoomLevel(mapInstance.getZoom())
-          );
+          mapInstance.on("zoomend", () => setZoomLevel(mapInstance.getZoom()));
         }}
       >
         <TileLayer

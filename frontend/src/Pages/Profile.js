@@ -97,7 +97,7 @@ const Profile = () => {
 
                 <div className='flex items-center gap-4'>
                     <span className='text-md sm:text-lg md:text-lg lg:text-xl text-gray-900'>Username:</span>
-                    <span>{userName}</span>
+                    <span className='text-blue-500' >{userName}</span>
                 </div>
 
                 <div className='flex items-center gap-4'>
