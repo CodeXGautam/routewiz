@@ -34,7 +34,7 @@ const clearSearchHistory = async (req, res) => {
 			return res.status(401).json({ message: "Unauthorized user" });
 		}
 
-		const deletedHistory = await Search.deleteMany({ userId: user._id });
+		const deletedHistory = await Search.deleteMany( user._id );
 
 		if (deletedHistory.deletedCount === 0) {
 			return res.status(404).json({ message: "No history found to delete" });
