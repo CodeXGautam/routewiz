@@ -25,4 +25,27 @@ const searched = async (req,res) =>{
     console.log("Search history created successfully:", newSearch);
 }
 
-export { searched };
+
+const clearSearchHistory = async (req, res) => {
+	try {
+		const user = req.user;
+
+		if (!user) {
+			return res.status(401).json({ message: "Unauthorized user" });
+		}
+
+		const deletedHistory = await Search.deleteMany({ userId: user._id });
+
+		if (deletedHistory.deletedCount === 0) {
+			return res.status(404).json({ message: "No history found to delete" });
+		}
+
+		res.status(200).json({ message: "History deleted successfully" });
+	} catch (error) {
+		console.error("Error deleting search history:", error);
+		res.status(500).json({ message: "Failed to delete history" });
+	}
+};
+
+
+export { searched, clearSearchHistory };
