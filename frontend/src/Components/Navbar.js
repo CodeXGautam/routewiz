@@ -102,7 +102,7 @@ const Navbar = (props) => {
 
             {isloggedIn && 
                 <div className={icon ? 'block' : 'hidden'}>
-                <div className='flex flex-col gap-4 mt-3 bg-white items-center shadow-lg sm:hidden md:hidden lg:hidden z-[1000] 
+                <div className='flex flex-col gap-4 mt-3 bg-white items-center shadow-lg sm:hidden md:hidden lg:hidden z-[10000] 
             absolute top-[25px] right-[0px] p-10' id='menu' >
                     {isloggedIn &&
                         <NavLink to='/home'>
