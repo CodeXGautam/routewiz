@@ -9,7 +9,7 @@ const Profile = (props) => {
     const [userName, setUserName] = useState();
     const [fullName, setFullName] = useState();
     const [email, setEmail] = useState();
-    const [history, setHistory] = useState();
+    const [history, setHistory] = useState([]);
 
     const navigate = useNavigate();
 
