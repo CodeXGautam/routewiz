@@ -18,8 +18,8 @@ const Home = ({ city }) => {
     }
 
     return (
-        <div className='flex justify-around flex-col sm:flex-row lg:flex-row md:flex-row items-center w-[100%] mt-2 mb-4'>
-            <div className='w-[74%] sm:w-[58%] lg:w-[58%] md:w-[58%] h-[400px] sm:h-[100vh] md:h-[100vh] lg:h-[100vh]   items-center flex justify-center'>
+        <div className='flex justify-around flex-col sm:flex-row lg:flex-row md:flex-row items-center w-[100%] h-[100%] mt-2 mb-4'>
+            <div className='w-[74%] sm:w-[58%] lg:w-[58%] md:w-[58%] h-[40%] sm:h-[100vh] md:h-[100vh] lg:h-[100vh]   items-center flex justify-center'>
             <Map city={city} className ='w-[100%] h-[100%] m-auto' />
             </div>
 
