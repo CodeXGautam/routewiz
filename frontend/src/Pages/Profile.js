@@ -85,8 +85,8 @@ const Profile = (props) => {
 
 
     useEffect(() => {
-        getProfile(),
-	    historyHandler()
+        getProfile();
+	    historyHandler();
     }, []);
 
 const clearHistoryHandler = async () => {
