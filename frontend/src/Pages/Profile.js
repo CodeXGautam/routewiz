@@ -93,6 +93,10 @@ const Profile = (props) => {
         getProfile();
     }, []);
 
+	const clearHistoryHandler = () =>{
+		
+	}
+
     return (
         <div className='flex flex-col items-center w-full h-full mt-5 gap-5'>
             <div className='text-4xl font-bold text-blue-400'>Profile</div>
@@ -145,6 +149,11 @@ const Profile = (props) => {
 	<div className='text-sm flex gap-2 items-center'>
         Time : <span className='text-sm text-blue-500 border-2 p-2 shadow-md rounded-md'>{value.createdAt}</span>
       </div>
+
+	<button className ='mt-4 flex justify-center items-center text-gray-100 bg-blue-500 hover:text-white hover:bg-blue-600 p-2 rounded-md shadow-md'
+			onClick = {clearHistoryHandler} >
+		Clear History
+	</button>
     </div>
   ))
 }
