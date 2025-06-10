@@ -93,9 +93,35 @@ const Profile = (props) => {
         getProfile();
     }, []);
 
-	const clearHistoryHandler = () =>{
-		
-	}
+const clearHistoryHandler = async () => {
+    try {
+        const response = await fetch("https://routewiz-backend.onrender.com/api/clearHistory", {
+            method: "DELETE",  // Change this if needed
+            credentials: "include",
+        });
+
+        const data = await response.json();
+
+        if (!data || data.message === "Failed to delete history") {
+            toast.error("Failed to delete history");
+            return;
+        }
+
+        if (data.message === "No history found to delete") {
+            toast.error("No history found to delete");
+            return;
+        }
+
+        if (data.message === "History deleted successfully") {
+            historyHandler(); // reload history
+            toast.success("History deleted");
+        }
+    } catch (error) {
+        console.log("Error", error);
+        toast.error("Deletion failed");
+    }
+};
+
 
     return (
         <div className='flex flex-col items-center w-full h-full mt-5 gap-5'>
