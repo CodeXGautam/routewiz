@@ -17,7 +17,7 @@ const app = express();
 
 
 app.use(cors({
-  origin:'https://routewiz.onrender.com/',
+  origin:'https://routewiz.onrender.com',
   credentials: true,
   exposedHeaders: ['set-cookie']
 }));
