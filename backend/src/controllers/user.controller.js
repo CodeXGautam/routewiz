@@ -61,7 +61,8 @@ const registerUser = async (req, res) => {
     console.log(accessToken, refreshToken) 
     const options = {
       httpOnly: true,
-      secure: false,
+      secure: true,
+      sameSite: 'None'
     };
 
     res.status(201)
@@ -100,7 +101,8 @@ const loginUser = async (req, res) => {
 
     const options = {
       httpOnly: true,
-      secure: false,
+      secure: true,
+      sameSite: 'None'
     };
 
 
@@ -152,9 +154,10 @@ const logoutUser = async (req, res) => {
     user.refreshToken = undefined;
     await user.save({ validateBeforeSave: false });
 
-    const options = {
+     const options = {
       httpOnly: true,
-      secure: false,
+      secure: true,
+      sameSite: 'None'
     };
 
     return res.status(200)
@@ -193,9 +196,10 @@ const refreshAccessToken = async (req, res) => {
 
     const { accessToken, refreshToken: newRefreshToken } = await generateAccessandRefreshToken(user._id);
 
-    const options = {
+   const options = {
       httpOnly: true,
-      secure: false,
+      secure: true,
+      sameSite: 'None'
     };
 
     res.status(200)
