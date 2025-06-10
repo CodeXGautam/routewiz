@@ -9,7 +9,7 @@ import { FaCircle } from "react-icons/fa6";
 
 const Delhi = () => {
 
-    const api_url = "http://127.0.0.1:8000/predict/?timestamp=";
+    const api_url = "https://routewiz-ml.onrender.com/predict/?timestamp=";
 
     const [timestamp, setTimestamp] = useState(
         { date: '', time: '' }
