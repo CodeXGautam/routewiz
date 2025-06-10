@@ -63,31 +63,26 @@ const Profile = (props) => {
     };
 
     const historyHandler = async () => {
-        try {
-            const response = await fetch("https://routewiz-backend.onrender.com/api/searchHistory", {
-                method: "GET",
-                credentials: "include",
-            });
+    try {
+        const response = await fetch("https://routewiz-backend.onrender.com/api/searchHistory", {
+            method: "GET",
+            credentials: "include",
+        });
 
-            const data = await response.json();
+        const data = await response.json();
 
-            if (!data || data.message === "Failed to fetch search history") {
-                toast.error("Failed to fetch search history");
-                return;
-            }
-
-            if (data.searchHistory?.length === 0) {
-                setHistory("No searches found");
-            } else {
-                setHistory(data.searchHistory);
-            }
-
-            // console.log(data.searchHistory);
-        } catch (error) {
-            console.log("Error", error);
-            toast.error("History loading failed");
+        if (!data || data.message === "Failed to fetch search history") {
+            toast.error("Failed to fetch search history");
+            return;
         }
-    };
+
+        setHistory(data.searchHistory || []);
+    } catch (error) {
+        console.log("Error", error);
+        toast.error("History loading failed");
+    }
+};
+
 
     useEffect(() => {
         getProfile();
@@ -156,8 +151,10 @@ const clearHistoryHandler = async () => {
                     </button>
                 </div>
 	   		
-
-{
+{ history.length === 0 ? (
+  <p> No searches found</p>
+) :
+(
   history && (
     <>
       {history.map((value, index) => (  
@@ -188,7 +185,8 @@ const clearHistoryHandler = async () => {
       </button>
     </>
   )
-}
+)
+}   
 
                 <button onClick={clickHandler} className='flex justify-center items-center text-red-500 text-lg 
                     hover:text-red-600 hover:bg-gray-100 p-1 w-[25%] mx-auto'
