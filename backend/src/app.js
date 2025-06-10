@@ -47,7 +47,7 @@ app.get('/api/logout', verifyJWT, logoutUser);
 app.get('/api/currentUser', verifyJWT, getcurrentUser);
 app.post('/api/search', verifyJWT, searched);
 app.get('/api/searchHistory', verifyJWT, getsearchHistory);
-app.get('/api/clearHistory', verifyJWT,clearSearchHistory);
+app.delete('/api/clearHistory', verifyJWT,clearSearchHistory);
 
 
 
