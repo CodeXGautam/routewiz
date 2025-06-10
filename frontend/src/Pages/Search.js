@@ -61,8 +61,8 @@ const formatDuration = (milliseconds) => {
   return `${days} day ${remainingHours} hr ${minutes} min`;
 };
 
-const Search = (props) => {
-  const user = props.user;
+const Search = () => {
+  
 
   const [startQuery, setStartQuery] = useState("");
   const [endQuery, setEndQuery] = useState("");
@@ -83,9 +83,10 @@ const Search = (props) => {
   const mapRef = useRef();
 
   const handleSubmit = async () => {
-    const start = await nominatimGeocode(startQuery);
+
+	const start = await nominatimGeocode(startQuery);
     const end = await nominatimGeocode(endQuery);
-    if (!start || !end) return alert("Failed to geocode addresses.");
+    if (!start || !end) toast.error("Failed to geocode addresses.");
 
     setStartPoint(start);
     setEndPoint(end);
@@ -121,7 +122,7 @@ const Search = (props) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
 	credentials: 'include',       
- body: JSON.stringify({ start: startQuery, end: endQuery, vehicle, routePref, user }),
+ body: JSON.stringify({ start: startQuery, end: endQuery, vehicle, routePref }),
       });
       const saveData = await saveRes.json();
 
@@ -145,7 +146,7 @@ const Search = (props) => {
           (prevUrl) => `${prevUrl.split("?refresh")[0]}?refresh=${new Date().getTime()}`
         );
       }
-    }, 30);
+    }, 300);
     return () => clearInterval(interval);
   }, [routePref, trafficTilesUrl]);
 
@@ -166,7 +167,7 @@ const Search = (props) => {
       }
     };
 
-    const timeout = setTimeout(fetchSuggestions, 3000);
+    const timeout = setTimeout(fetchSuggestions, 300);
     return () => clearTimeout(timeout);
   }, [startQuery, endQuery, startSelected, endSelected]);
 

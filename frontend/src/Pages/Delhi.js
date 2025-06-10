@@ -23,6 +23,7 @@ const Delhi = () => {
     const [showAnswer, setShowAnswer] = useState(false);
     const[speedAnswer, setSpeedAnswer] = useState(false);
     const[calculatedAnswer, setCalculatedAnswer] = useState(false);
+     const[modelAnswer, setModelAnswer] = useState(false);
 
     const url = `${api_url}${date} ${timestamp.time}`
     console.log(url);
@@ -77,6 +78,11 @@ const Delhi = () => {
         console.log("i am clicked")
         setCalculatedAnswer(!calculatedAnswer)
     }
+     
+    const answer4Handler = () => {
+        console.log("i am clicked")
+        setModelAnswer(!modelAnswer)
+    }
 
     return (
         <div className='flex flex-col items-center mt-3 gap-8 mb-5'>
@@ -88,6 +94,11 @@ const Delhi = () => {
 
 
             <div className='flex flex-col gap-2 text-sm sm:text-md md:text-xl lg:text-xl text-gray-500 mt-8 min-w-[200px] max-w-[900px] w-[50%]'>
+
+		 <h2 className='text-lg sm:text-xl md:text-xl lg:text-xl text-red-500 mb-2'>
+                NOTE :-  This Page is for the analysis of traffic in Delhi 
+            	</h2>
+
                 <div className='flex gap-2 w-[100%]'>
                      <FaCircle className='text-[10px]' color='red' />
                     <span className='w-[90%] flex items-center justify-center'>Congestion and Speed Values are predicted on the basis of previous dataset.</span>
@@ -196,6 +207,23 @@ const Delhi = () => {
                             </span>
                         </span>
                     </div>
+
+         	    <div onClick={answer4Handler} className='cursor-pointer flex flex-col gap-2 w-[100%] shadow-lg border rounded-md p-2'>    
+	                <div className='flex justify-between items-center w-[100%] text-md sm:text-md md:text-lg lg:text-lg'>
+                            <span className='flex items-center gap-2 '> <FaCircle className='text-[10px]' color='red' />
+                               Which ML model is being used for predictions ?
+                            </span>
+                            <span>{modelAnswer ? (<GoTriangleUp />) : (<GoTriangleDown />)}</span>
+                        </div>
+                        <span className={modelAnswer ? "block" : "hidden"}>
+                            <span className='text-sm'>
+                                ↪ A XG-Boost model is used for making predictions, which is trained on speed and traffic congestion data varying with time. 
+				<br/>
+				The dataset is of location between Delhi and Gurugram. 
+                            </span>
+                        </span>
+                    </div>
+
                 </div>
             </div>
         </div>

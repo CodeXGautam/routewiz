@@ -29,7 +29,7 @@ function App() {
       <div className='h-screen w-[100%]'>
       <Routes>
         <Route path= '*' element={<Start city={city} isloggedIn={isloggedIn} onDatachange={handleChange} />}/>
-        <Route path='/' element={<Start city={city} onDatachange={handleChange} />} />
+        <Route path='/' element={<Start city={city} onDatachange={handleChange} isloggedIn={isloggedIn}/>} />
         <Route path='/register' element={<Register setLogin={setLogin}  />}/>
         <Route path='/login' element={<Login setLogin={setLogin} />}/>
        { isloggedIn &&

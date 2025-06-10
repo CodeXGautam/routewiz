@@ -37,8 +37,7 @@ const Start = ({ city, onDatachange , isloggedIn}) => {
             toast.error("Please enter a valid city name");
             return;
         }
-        else {
-            if (isloggedIn) {
+        else if (isloggedIn) {
                 console.log('Button pressed');
                 onDatachange(location.city)
                 navigate('/home');  
@@ -47,7 +46,6 @@ const Start = ({ city, onDatachange , isloggedIn}) => {
                 toast.success("Please register or login to continue");
                 navigate('/register');
             }
-        }
         // fetchData();
 
     }

@@ -1,8 +1,8 @@
 import Search from "../models/search.model.js";
 
 const searched = async (req,res) =>{
-    const {start , end , vehicle ,  routePref ,user } = req.body;
-
+    const {start , end , vehicle ,  routePref } = req.body;
+	const user  = req.user._id;
     // Validate input
     if (!(start || end|| vehicle || routePref)) {
         return res.status(400).json({ message: "All fields are required" });
