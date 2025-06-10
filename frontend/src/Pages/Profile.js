@@ -144,12 +144,7 @@ const clearHistoryHandler = async () => {
 
                 <div className='flex gap-3 items-center'>
                     <span className='text-md sm:text-lg md:text-lg lg:text-xl text-gray-900'>Search History:</span>
-                    // <button
-                    //     className='flex justify-center items-center text-gray-100 bg-blue-500 hover:text-white hover:bg-blue-600 p-2 rounded-md'
-                    //     onClick={historyHandler}
-                    // >
-                    //     View
-                    // </button>
+                  
                 </div>
 	   		
 { history.length === 0 ? (
@@ -199,3 +194,12 @@ const clearHistoryHandler = async () => {
     );
 };
 export default Profile;
+
+
+
+	        // <button
+                    //     className='flex justify-center items-center text-gray-100 bg-blue-500 hover:text-white hover:bg-blue-600 p-2 rounded-md'
+                    //     onClick={historyHandler}
+                    // >
+                    //     View
+                    // </button>
