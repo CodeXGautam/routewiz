@@ -10,7 +10,7 @@ import {
   logoutUser,
   refreshAccessToken
 } from './controllers/user.controller.js';
-import { searched } from './controllers/search.controller.js';
+import { searched ,clearSearchHistory } from './controllers/search.controller.js';
 import { verifyJWT } from './middlewares/auth.middleware.js';
 
 const app = express();
@@ -47,6 +47,7 @@ app.get('/api/logout', verifyJWT, logoutUser);
 app.get('/api/currentUser', verifyJWT, getcurrentUser);
 app.post('/api/search', verifyJWT, searched);
 app.get('/api/searchHistory', verifyJWT, getsearchHistory);
+app.get('/api/clearHistory', verifyJWT,clearSearchHistory);
 
 
 
