@@ -131,34 +131,39 @@ const Profile = (props) => {
                 </div>
 	   		
 
-		{
-  history && history.map((value, index) => (
-    <div key={index} className='flex flex-col gap-2 p-2 border-2 shadow-md rounded-md'>
-      <div className='text-sm flex gap-2 items-center'>
-        Origin : <span className='text-sm text-blue-500 border-2 p-2 shadow-md rounded-md'>{value.start}</span>
-      </div>
-      <div className='text-sm flex gap-2 items-center'>
-        Destination : <span className='text-sm text-blue-500 border-2 p-2 shadow-md rounded-md'>{value.end}</span>
-      </div>
-      <div className='text-sm flex gap-2 items-center'>
-        Vehicle : <span className='text-sm text-blue-500 border-2 p-2 shadow-md rounded-md'>{value.vehicle}</span>
-      </div>
-      <div className='text-sm flex gap-2 items-center'>
-        Route Preference : <span className='text-sm text-blue-500 border-2 p-2 shadow-md rounded-md'>{value.routePref}</span>
-      </div>
-	<div className='text-sm flex gap-2 items-center'>
-        Time : <span className='text-sm text-blue-500 border-2 p-2 shadow-md rounded-md'>{value.createdAt}</span>
-      </div>
-
-	<button className ='mt-4 flex justify-center items-center text-gray-100 bg-blue-500 hover:text-white hover:bg-blue-600 p-2 rounded-md shadow-md'
-			onClick = {clearHistoryHandler} >
-		Clear History
-	</button>
-    </div>
-  ))
+{
+  history && (
+    <>
+      {history.map((value, index) => (  
+        <div key={index} className='flex flex-col gap-2 p-2 border-2 shadow-md rounded-md'>
+          <div className='text-sm flex gap-2 items-center'>
+            Origin : <span className='text-sm text-blue-500 border-2 p-2 shadow-md rounded-md'>{value.start}</span>
+          </div>
+          <div className='text-sm flex gap-2 items-center'>
+            Destination : <span className='text-sm text-blue-500 border-2 p-2 shadow-md rounded-md'>{value.end}</span>
+          </div>
+          <div className='text-sm flex gap-2 items-center'>
+            Vehicle : <span className='text-sm text-blue-500 border-2 p-2 shadow-md rounded-md'>{value.vehicle}</span>
+          </div>
+          <div className='text-sm flex gap-2 items-center'>
+            Route Preference : <span className='text-sm text-blue-500 border-2 p-2 shadow-md rounded-md'>{value.routePref}</span>
+          </div>
+          <div className='text-sm flex gap-2 items-center'>
+            Time : <span className='text-sm text-blue-500 border-2 p-2 shadow-md rounded-md'>{value.createdAt}</span>
+          </div>
+        </div>  
+      ))}
+      
+      <button
+        className='mt-4 flex justify-center items-center text-gray-100 bg-blue-500 hover:text-white hover:bg-blue-600 p-2 rounded-md shadow-md'
+        onClick={clearHistoryHandler}
+      >
+        Clear History
+      </button>
+    </>
+  )
 }
 
-	  
                 <button onClick={clickHandler} className='flex justify-center items-center text-red-500 text-lg 
                     hover:text-red-600 hover:bg-gray-100 p-1 w-[25%] mx-auto'
                 >
