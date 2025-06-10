@@ -64,7 +64,7 @@ const Navbar = (props) => {
                                 <div className='text-md font-semibold hover:bg-gray-100 rounded-lg p-2 text-red-600'
                                     onClick={async () => {
                                         try {
-                                            const response = await fetch("http://localhost:4000/api/logout", {
+                                            const response = await fetch("https://routewiz-backend.onrender.com/api/logout", {
                                                 method: "GET",
                                                 credentials: "include",
                                             });
@@ -128,7 +128,7 @@ const Navbar = (props) => {
                             <div className='text-lg font-semibold text-red-500 bg-sky-100 hover:bg-gray-100 rounded-lg p-2 text-red-600'
                                 onClick={async () => {
                                     try {
-                                        const response = await fetch("http://localhost:4000/api/logout", {
+                                        const response = await fetch("https://routewiz-backend.onrender.com/api/logout", {
                                             method: "GET",
                                             credentials: "include",
                                         });

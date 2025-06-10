@@ -17,7 +17,10 @@ const app = express();
 
 
 app.use(cors({
-  origin:'http://localhost',
+  origin:[
+	'http://localhost',
+	'https://routewiz.onrender.com/'
+]
   credentials: true,
   exposedHeaders: ['set-cookie']
 }));

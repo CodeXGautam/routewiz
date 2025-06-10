@@ -15,7 +15,7 @@ const Profile = (props) => {
 
     const getProfile = async () => {
         try {
-            const res = await fetch('http://localhost:4000/api/currentUser', {
+            const res = await fetch('https://routewiz-backend.onrender.com/api/currentUser', {
                 method: 'GET',
                 credentials: 'include', 
                 headers: {
@@ -42,7 +42,7 @@ const Profile = (props) => {
 
     const clickHandler = async () => {
         try {
-            const response = await fetch("http://localhost:4000/api/logout", {
+            const response = await fetch("https://routewiz-backend.onrender.com/api/logout", {
                 method: "GET",
                 credentials: "include",
             });
@@ -64,7 +64,7 @@ const Profile = (props) => {
 
     const historyHandler = async () => {
         try {
-            const response = await fetch("http://localhost:4000/api/searchHistory", {
+            const response = await fetch("https://routewiz-backend.onrender.com/api/searchHistory", {
                 method: "GET",
                 credentials: "include",
             });

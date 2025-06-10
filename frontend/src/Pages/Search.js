@@ -25,7 +25,7 @@ const FlyTo = ({ position }) => {
 };
 
 const nominatimGeocode = async (query) => {
-  const res = await fetch(`http://localhost:4000/api/geocode?q=${encodeURIComponent(query)}`);
+  const res = await fetch(`https://routewiz-backend.onrender.com/api/geocode?q=${encodeURIComponent(query)}`);
   const data = await res.json();
   if (data.length > 0) {
     const { lat, lon } = data[0];
@@ -35,13 +35,13 @@ const nominatimGeocode = async (query) => {
 };
 
 const nominatimAutocomplete = async (query) => {
-  const res = await fetch(`http://localhost:4000/api/autocomplete?q=${encodeURIComponent(query)}`);
+  const res = await fetch(`https://routewiz-backend.onrender.com/api/autocomplete?q=${encodeURIComponent(query)}`);
   const data = await res.json();
   return data;
 };
 
 const fetchRouteFromBackend = async (start, end, vehicle, routePref) => {
-  const res = await fetch("http://localhost:4000/api/route", {
+  const res = await fetch("https://routewiz-backend.onrender.com/api/route", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
 	credentials: 'include',
@@ -113,12 +113,12 @@ const Search = () => {
           2 *
           2 ** z
         );
-        setTrafficTilesUrl(`http://localhost:4000/api/traffic-tile/${z}/${x}/${y}`);
+        setTrafficTilesUrl(`https://routewiz-backend.onrender.com/api/traffic-tile/${z}/${x}/${y}`);
       } else {
         setTrafficTilesUrl("");
       }
 
-      const saveRes = await fetch("http://localhost:4000/api/search", {
+      const saveRes = await fetch("https://routewiz-backend.onrender.com/api/search", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
 	credentials: 'include',       

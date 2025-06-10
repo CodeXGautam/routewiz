@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 const Register = (props) => {
 
 
-    const url = 'http://localhost:4000/'; 
+    const url = 'https://routewiz-backend.onrender.com/'; 
 
     const setLogin = props.setLogin;
     const navigate = useNavigate();
