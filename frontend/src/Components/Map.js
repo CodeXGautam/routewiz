@@ -47,7 +47,7 @@ const Map = ({ city }) => {
   }, [city]);
 
   return (
-    <div style={{ height: '100vh', width: '100%' }}>
+    <div style={{ height: '100%', width: '100%' }}>
       <MapContainer center={position} zoom={13} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
         <ChangeMapView coords={position} /> {/* This will center the map on the new position */}
         <TileLayer
