@@ -82,7 +82,7 @@ const Profile = (props) => {
                 setHistory(data.searchHistory);
             }
 
-            console.log(data.searchHistory);
+            // console.log(data.searchHistory);
         } catch (error) {
             console.log("Error", error);
             toast.error("History loading failed");
@@ -96,7 +96,7 @@ const Profile = (props) => {
 const clearHistoryHandler = async () => {
     try {
         const response = await fetch("https://routewiz-backend.onrender.com/api/clearHistory", {
-            method: "DELETE",  // Change this if needed
+            method: "POST",  
             credentials: "include",
         });
 
