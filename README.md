@@ -18,11 +18,16 @@ RouteWizard is an intelligent route optimization platform that leverages machine
 
 ---
 
-
 ## 🖼️ UI Screenshots
 
 ### 🏁 Welcome Page
 ![Welcome Page](frontend/src/images/welcome_page.png)
+
+### 🔐 Login Page
+![Login](frontend/src/images/login_page.png)
+
+### 📝 Register Page
+![Register](frontend/src/images/register_page.png)
 
 ### 🔍 Search Functionality
 ![Search](frontend/src/images/search.png)
