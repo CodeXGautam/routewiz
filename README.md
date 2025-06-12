@@ -1,113 +1,206 @@
-# RouteWizard 🚀
+# 🚀 RouteWizard
 
-RouteWizard is an intelligent route optimization platform that leverages machine learning to provide optimal navigation solutions. 
-It uses Graphhopper to provide most optimized route to user based on  minimum time/ minimum distance and real time traffic using TOMTOM.
-A XG-Boost model is trained on previous traffic congestion dataset of location between Gurugram and Delhi at NH-48, to predict the congestion
-factor and current speed on different timestamp.
+RouteWizard is an intelligent route optimization platform that leverages machine learning to provide optimal navigation solutions. It integrates **GraphHopper** for routing based on minimum time/distance and **TomTom** for real-time traffic data. An **XGBoost** model is trained on historical congestion data between **Gurugram** and **Delhi (NH-48)** to predict traffic congestion factors and current speed by timestamp.
 
-
+---
 
 ## 🌟 Features
 
-- Real-time route optimization using GraphHopper
-- Interactive map interface
-- Traffic pattern analysis
-- Multi-stop route planning
-- Congestion Factor and Speed Predictions using XG-Boost Model
+* 🚦 Real-time route optimization using **GraphHopper**
+* 🗺️ Interactive map interface with Leaflet and OpenStreetMap
+* 📈 Traffic pattern analysis based on historical data
+* 📊 Congestion factor & speed predictions via **XGBoost** ML model
+
+---
 
 ## 🛠 Tech Stack
 
 ### Frontend
-- React.js
-- OpenSteetMap and Leaflet.js 
-- Tailwind CSS
+
+* **React.js**
+* **OpenStreetMap** + **Leaflet.js**
+* **Tailwind CSS**
 
 ### Backend
-- Node.js (Express)
-- RESTful API architecture
-- JWT Authentication
+
+* **Node.js (Express)**
+* **JWT** Authentication
+* **RESTful API** architecture
 
 ### Machine Learning
-- XGBoost model for route predictions
-- Django ML serving layer
-- Python data processing pipeline
+
+* **XGBoost** model (congestion prediction)
+* **Django**-based ML serving layer
+* **Python** for preprocessing and model logic
 
 ### Infrastructure
-- Nginx reverse proxy
-- Render.com hosting
-- MongoDb Database
+
+* **Nginx** reverse proxy for unified interface
+* **MongoDB** for data persistence
+* **Render.com** for deployment
+
+---
 
 ## 🚀 Getting Started
 
-### Prerequisites
-- Node.js (v18+)
-- Python (3.11+)
-- Redis (for caching)
+### ✅ Prerequisites
 
-### Installation
+* [Node.js](https://nodejs.org/) (v18+)
+* [Python](https://www.python.org/) (3.11+)
+* [Redis](https://redis.io/) (for caching)
 
-#### Frontend
-bash/powershell/terminal
--cd frontend
--npm install
--npm start
+---
 
-#### Backend
--cd backend
--npm install
--npm run dev
+### 📦 Installation
 
-#### Django(ML Services)
--cd ml
--python -m venv venv
--source venv/bin/activate  # Windows: venv\Scripts\activate
--pip install -r requirements.txt
--python manage.py runserver
+#### 📁 Frontend
 
-#### Environment Variables 
-- create .env files
-  
-##### Frontend 
--REACT_APP_API_URL=http://localhost:5000/api
+```bash
+cd frontend
+npm install
+npm start
+```
 
-##### Backend
--PORT=5000
--DB_URI=postgres://user:password
--JWT_SECRET=your_jwt_secret
+#### 📥️ Backend
 
-##### Djnago (mlproject)
--DEBUG=True
--SECRET_KEY=your_django_secret
--ALLOWED_HOSTS=localhost,127.0.0.1
+```bash
+cd backend
+npm install
+npm run dev
+```
 
+#### 🧠 Django (ML Services)
 
-## Project Structure 
+```bash
+cd ml
+python -m venv venv
+source venv/bin/activate   # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python manage.py runserver
+```
+
+---
+
+### 🔐 Environment Variables
+
+Create `.env` files in respective directories.
+
+#### Frontend `.env`
+
+```
+REACT_APP_API_URL=http://localhost:5000/api
+```
+
+#### Backend `.env`
+
+```
+PORT=5000
+DB_URI=postgres://user:password@localhost:5432/yourdb
+JWT_SECRET=your_jwt_secret
+```
+
+#### Django ML `.env` (or set in `settings.py`)
+
+```
+DEBUG=True
+SECRET_KEY=your_django_secret
+ALLOWED_HOSTS=localhost,127.0.0.1
+```
+
+---
+
+## 🧱 Project Structure
+
+```text
 routewizard/
-├── frontend/               # React frontend
+├── frontend/           # React frontend
 │   ├── public/
-│   ├── src/
-│   │   ├── components/   # React components
-│   │   ├── pages/        # Application pages
-│   │   ├── images/       # Application images
-│   │   ├── utils/        # Helper functions
-│   │   └── App.js        #application routes
-│   │   └── Index.js      # Main application
-├── backend/               # Node.js backend
+│   └── src/
+│       ├── components/ # Reusable React components
+│       ├── pages/      # Page views
+│       ├── images/
+│       ├── utils/      # Utility functions
+│       ├── App.js      # React routing logic
+│       └── index.js    # Entry point
+│
+├── backend/            # Express.js backend
 │   ├── public/
-│   ├── src/
-│   │   ├── controllers/   # Controllers
-│   │   ├── middlewares/   # Middlewares
-│   │   ├── models/        # Models (model schemas)
-│   │   ├──db/             # Database
-│   │   ├──routes/         # Application routes
-│   │   └── app.js         # Express app
-│   │   └── constants.js   # Application constants
-│   │   └── Index.js       # Main application
-├── mlproject/           # Django ML service
-│   ├── mlapi/           # Django app
-│   │   ├── models/      # ML models
-│   │   └── views.py     # Prediction endpoints
-│   ├── mlproject/       # Django project
+│   └── src/
+│       ├── controllers/
+│       ├── middlewares/
+│       ├── models/
+│       ├── db/
+│       ├── routes/
+│       ├── app.js
+│       ├── constants.js
+│       └── index.js
+│
+├── mlproject/          # Django ML service
+│   ├── mlapi/
+│   │   ├── models/     # XGBoost and ML logic
+│   │   └── views.py    # Prediction endpoints
+│   ├── mlproject/      # Django core project
 │   └── manage.py
-├── nginx/                # Nginx configuration
-└── README.md
+│
+├── nginx/              # Nginx reverse proxy config
+└── README.md           # This file
+```
+
+---
+
+## 📊 Prediction API
+
+Once Django is running, access predictions via:
+
+```
+GET /predict/?timestamp=08:00
+```
+
+**Response:**
+
+```json
+{
+  "timestamp": "08:00",
+  "predicted_congestion_factor": 0.156,
+  "predicted_current_speed": 38.6
+}
+```
+
+---
+
+## 🌐 Deployment Notes
+
+* Reverse proxy is configured using **Nginx**
+* Hosted on **Render.com** with separate services for:
+
+  * Node backend
+  * React frontend
+  * Django ML API
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions to improve RouteWizard. To contribute:
+
+1. Fork the repo
+2. Create your feature branch (`git checkout -b feature/YourFeature`)
+3. Commit changes (`git commit -m 'Add awesome feature'`)
+4. Push to the branch (`git push origin feature/YourFeature`)
+5. Create a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 📨 Contact
+
+For queries or support, raise an issue or contact [Gautam](https://github.com/CodeXGautam).
+
+---
+
+> 🚧 *This project is under active development. Stay tuned for new features and performance improvements!*
