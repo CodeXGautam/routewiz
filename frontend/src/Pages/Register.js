@@ -52,8 +52,6 @@ const Register = (props) => {
         }
 
         else {
-            // Here you would typically send the registerData to your backend API
-            // For example, using fetch or axios:
             await fetch(`${url}api/register`, {
                 method: 'POST',  // // Adjust the URL to your backend endpoint   
                 headers: {
@@ -112,8 +110,8 @@ const Register = (props) => {
                     // If registration is successful    
 
                     else {
-                        console.log('Success:', response);
-                        // Handle success, e.g., redirect to login or home page
+                        // console.log('Success:', response);
+                     
                         toast.success("Account Created");
                         setLogin(true);
                         navigate('/home');
@@ -128,7 +126,7 @@ const Register = (props) => {
                         });
 
                         console.log("Form submitted");
-                        console.log(registerData);
+                        // console.log(registerData);
                     }
 
                 }
@@ -136,7 +134,6 @@ const Register = (props) => {
 
                 .catch((error) => {
                     console.error('Error:', error);
-                    // Handle error, e.g., show an error message
                     toast.error("Registration failed. Please try again.");
                 });
 
