@@ -2,12 +2,16 @@ import { NavLink, useNavigate } from "react-router";
 import mapImage from '../images/map.png'
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { FaRegEye } from "react-icons/fa";
+import { FaRegEyeSlash } from "react-icons/fa";
 
 
 
 
 
 const Login = (props) => {
+
+     const [showPass, setShowPass] = useState(false);
 
     const url = 'https://routewiz-backend.onrender.com/'
 
@@ -96,6 +100,10 @@ const Login = (props) => {
 
     }
 
+     const passwordHandler = () => {
+        setShowPass(!showPass)
+    }
+
     return (
         <div className="overflow-hidden h-[100%] w-[100%]">
             <div className="flex items-center justify-center h-[100%] z-10 relative w-[100%]" >
@@ -108,8 +116,22 @@ const Login = (props) => {
                     <form className="flex flex-col gap-4 w-[100%] mt-0" onSubmit={submitHandler}>
                         <input type="email" placeholder="Email" value={loginData.email} id="email" name="email"
                             className="text-gray-900 border-2 border-gray-600 p-2 rounded-md" onChange={changeHandler} />
-                        <input type="password" placeholder="Password" value={loginData.password} name="password" id="password"
-                            className="text-gray-900 border-2 border-gray-600 p-2 rounded-md" onChange={changeHandler} />
+                          { !showPass &&
+                            <div className="relative">
+                                <input type="password" placeholder="Password" value={loginData.password} name="password" id="password"
+                                    className="text-gray-900 border-2 border-gray-600 p-2 rounded-md w-[100%]" onChange={changeHandler} />
+                                <FaRegEyeSlash onClick={passwordHandler} className="absolute right-3 bottom-3" />
+                            </div>
+                        }
+
+                        { showPass &&
+                            <div className='relative'>
+                                <input type="text" placeholder="Password" value={loginData.password} name="password" id="password"
+                                    className="text-gray-900 border-2 border-gray-600 p-2 rounded-md w-[100%]" onChange={changeHandler} />
+                                <FaRegEye  onClick={passwordHandler} className="absolute right-3 bottom-3"/>
+                            </div>
+
+                        }
                         <span className="text-md text-gray-800">Do not have an account?
                             <NavLink to={'/register'} className="text-blue-400 font-semibold"> Register Now</NavLink>
                         </span>
