@@ -55,6 +55,8 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
 ]
 
+CORS_ALLOW_CREDENTIALS = True
+
 
 # Application definition
 
