@@ -36,7 +36,7 @@ const Login = (props) => {
 
     const submitHandler = async (event) => {
         event.preventDefault();
-        console.log(loginData)
+        // console.log(loginData)
         if (loginData.email === "" || loginData.password === "") {
             toast.error("Please fill all the fields");
             return;
@@ -81,7 +81,7 @@ const Login = (props) => {
 
                     else {
                         toast.success("Login successful");
-                        console.log('Login successful:', response);
+                        // console.log('Login successful:', response);
                         setLogin(true);
                         navigate('/home');
                         setLoginData({
