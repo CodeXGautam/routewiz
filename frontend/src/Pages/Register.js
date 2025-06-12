@@ -2,11 +2,15 @@ import { NavLink, useNavigate } from "react-router";
 import image from '../images/imgroute.avif';
 import { useState } from "react";
 import toast from "react-hot-toast"; 
+import { FaRegEye } from "react-icons/fa";
+import { FaRegEyeSlash } from "react-icons/fa";
 
 
 
 
 const Register = (props) => {
+
+	
 
 
     const url = 'https://routewiz-backend.onrender.com/'; 
@@ -14,8 +18,8 @@ const Register = (props) => {
     const setLogin = props.setLogin;
     const navigate = useNavigate();
 
-    // const [showpassword, setShowPassword] = useState(false);
-    // const [showconfirmPassword, setShowConfirmPassword] = useState(false);
+    const [showpassword, setShowPassword] = useState(false);
+    const [showconfirmPassword, setShowConfirmPassword] = useState(false);
 
     const [registerData, setRegisterData] = useState({
         firstName: "",
@@ -140,6 +144,14 @@ const Register = (props) => {
 
     }
 
+	   const passHandler = () => {
+        setShowPassword(!showpassword)
+    }
+
+    const confirmPassHandler = () => {
+        setShowConfirmPassword(!showconfirmPassword)
+    }
+
 
 
     return (
@@ -173,14 +185,41 @@ const Register = (props) => {
                             className="text-gray-900 border-2 border-gray-600 p-2 rounded-md" />
                     </label>
 
-                    <label className="text-gray-800 text-sm flex flex-col gap-2">Password
-                        <input type="password" onChange={changeHandler} name="password" id="password" value={registerData.password}
-                            className="text-gray-900 border-2 border-gray-600 p-2 rounded-md" />
+                                    <label className="text-gray-800 text-sm flex flex-col gap-2">Password
+                        {!showpassword &&
+                            <div className="relative">
+                                <input type="password" onChange={changeHandler} name="password" id="password" value={registerData.password}
+                                    className="text-gray-900 border-2 border-gray-600 p-2 rounded-md w-[100%]" />
+                                <FaRegEyeSlash onClick={passHandler} className="absolute right-3 bottom-3" />
+                            </div>
+                        }
+
+                        {showpassword &&
+                            <div className='relative'>
+                                <input type="text" onChange={changeHandler} name="password" id="password" value={registerData.password}
+                                    className="text-gray-900 border-2 border-gray-600 p-2 rounded-md w-[100%]" />
+                                <FaRegEye onClick={passHandler} className="absolute right-3 bottom-3" />
+                            </div>
+                        }
                     </label>
 
                     <label className="text-gray-800 text-sm flex flex-col gap-2">Confirm Password
-                        <input type="password" onChange={changeHandler} name="confirmPassword" id="confirmPassword" value={registerData.confirmPassword}
-                            className="text-gray-900 border-2 border-gray-600 p-2 rounded-md" />
+                        {!showconfirmPassword &&
+                            <div className="relative">
+                                <input type="password" onChange={changeHandler} name="confirmPassword" id="confirmPassword" value={registerData.confirmPassword}
+                                    className="text-gray-900 border-2 border-gray-600 p-2 rounded-md w-[100%]" />
+                                <FaRegEyeSlash onClick={confirmPassHandler} className="absolute right-3 bottom-3" />
+                            </div>
+                        }
+
+                        {showconfirmPassword &&
+                            <div className='relative'>
+                                <input type="text" onChange={changeHandler} name="confirmPassword" id="confirmPassword" value={registerData.confirmPassword}
+                                    className="text-gray-900 border-2 border-gray-600 p-2 rounded-md w-[100%]" />
+                                <FaRegEye onClick={confirmPassHandler} className="absolute right-3 bottom-3" />
+                            </div>
+                        }
+
                     </label>
                     <span className="text-md text-gray-800">Already have a account ? <NavLink to={'/login'} className="text-blue-400 font-semibold">Login</NavLink></span>
                     <button className="text-md font-semibold bg-blue-500 rounded-lg p-3 text-white"> Register </button>
