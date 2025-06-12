@@ -2,6 +2,10 @@
   <img src="https://img.icons8.com/?size=160&id=110445&format=png" alt="RouteWizard Logo" width="150"/>
 </p>
 
+<p align="center">
+  🔗 <a href="https://routewiz.onrender.com" target="_blank"><strong>Live Demo: https://routewiz.onrender.com</strong></a>
+</p>
+
 
 # 🚀 RouteWizard
 
@@ -207,6 +211,7 @@ GET /predict/?timestamp=08:00
   * Node backend
   * React frontend
   * Django ML API
+  * 🔗 Live Site: [https://routewiz.onrender.com](https://routewiz.onrender.com)
 
 ---
 
