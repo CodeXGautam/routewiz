@@ -31,7 +31,7 @@ RouteWizard is an intelligent route optimization platform that leverages machine
 ![Real-Time Traffic](frontend/src/images/real-time-traffic.png)
 
 ### 📉 Congestion & Speed Prediction
-![Congestion Prediction](frontend/src/images/congestion_prediction.png)
+![Congestion Prediction](frontend/src/images/congestion_predicton.png)
 
 ### 👤 User Profile
 ![User Profile](frontend/src/images/profile.png)
