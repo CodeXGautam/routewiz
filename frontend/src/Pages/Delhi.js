@@ -32,7 +32,7 @@ const Delhi = () => {
     async function fetchdata() {
         try {
             const output = await fetch(url,{
-		    method: 'get',
+		    method: 'GET',
 		    headers: {
                     'Content-Type': 'application/json'
                 }, credentials : 'include'
