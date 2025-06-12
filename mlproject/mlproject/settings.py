@@ -25,9 +25,28 @@ SECRET_KEY = 'django-insecure-7tsl#^m1#r36)z@!wkm$50_7x)=u3t(e6fh=(qkj61nme_ep^b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 CORS_ALLOWED_ORIGINS = [
-    "https://routewiz.onrender.com",  # Your frontend
-    "http://localhost:3000",          # Local development
+    "https://routewiz.onrender.com",
+    "http://localhost:3000",
+]
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'OPTIONS',
+    'POST',
+]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
 ]
 
 ALLOWED_HOSTS = [
