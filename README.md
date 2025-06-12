@@ -82,7 +82,6 @@ RouteWizard is an intelligent route optimization platform that leverages machine
 
 * [Node.js](https://nodejs.org/) (v18+)
 * [Python](https://www.python.org/) (3.11+)
-* [Redis](https://redis.io/) (for caching)
 
 ---
 
