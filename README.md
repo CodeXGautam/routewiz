@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="frontend/src/images/logo.png" alt="RouteWizard Logo" width="150"/>
+</p>
+
+
 # 🚀 RouteWizard
 
 RouteWizard is an intelligent route optimization platform that leverages machine learning to provide optimal navigation solutions. It integrates **GraphHopper** for routing based on minimum time/distance and **TomTom** for real-time traffic data. An **XGBoost** model is trained on historical congestion data between **Gurugram** and **Delhi (NH-48)** to predict traffic congestion factors and current speed by timestamp.
@@ -10,6 +15,27 @@ RouteWizard is an intelligent route optimization platform that leverages machine
 * 🗺️ Interactive map interface with Leaflet and OpenStreetMap
 * 📈 Traffic pattern analysis based on historical data
 * 📊 Congestion factor & speed predictions via **XGBoost** ML model
+
+---
+
+
+## 🖼️ UI Screenshots
+
+### 🏁 Welcome Page
+![Welcome Page](frontend/src/images/welcome_page.png)
+
+### 🔍 Search Functionality
+![Search](frontend/src/images/search.png)
+
+### 🗺️ Real-Time Delhi Traffic
+![Real-Time Traffic](frontend/src/images/real-time-traffic.png)
+
+### 📉 Congestion & Speed Prediction
+![Congestion Prediction](frontend/src/images/congestion_prediction.png)
+
+### 👤 User Profile
+![User Profile](frontend/src/images/profile.png)
+
 
 ---
 
