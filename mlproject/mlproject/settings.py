@@ -30,6 +30,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",          # Local development
 ]
 
+ALLOWED_HOSTS=[
+    "https://routewiz-ml.onrender.com"
+]
+
 
 # Application definition
 
