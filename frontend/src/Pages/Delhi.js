@@ -31,12 +31,12 @@ const Delhi = () => {
 
     async function fetchdata() {
         try {
-            const output = await fetch(url,
-				       {method: 'get',
-					headers: {
+            const output = await fetch(url,{
+		    method: 'get',
+		    headers: {
                     'Content-Type': 'application/json'
-                },
-		    credentials : 'include')}
+                }, credentials : 'include'
+	    })
             const data = await output.json();
             setCongestion(data.predicted_congestion_factor)
             setSpeed(data.predicted_current_speed)
