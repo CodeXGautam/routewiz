@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="frontend/src/images/logo.png" alt="RouteWizard Logo" width="150"/>
+  <img src="https://img.icons8.com/?size=160&id=110445&format=png" alt="RouteWizard Logo" width="150"/>
 </p>
 
 
