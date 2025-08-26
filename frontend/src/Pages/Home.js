@@ -1,6 +1,6 @@
 import Map from '../Components/Map';
 import { useNavigate } from 'react-router';
-
+import { useEffect, useState } from 'react';
 
 
 
@@ -8,6 +8,22 @@ const Home = ({ city }) => {
 
     const navigate = useNavigate();
 
+    const [currentCity, setCurrentCity] = useState(city);
+
+    useEffect(() => {
+        // If no city from props, check localStorage
+        if (!city) {
+            const storedCity = localStorage.getItem('selectedCity');
+            if (storedCity) {
+                setCurrentCity(storedCity);
+                // Clear from localStorage after using
+                localStorage.removeItem('selectedCity');
+            }
+        } else {
+            setCurrentCity(city);
+        }
+    }, [city]);
+    
 
     const clickHandler = () => {
         navigate('/delhi');
