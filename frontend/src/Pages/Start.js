@@ -37,15 +37,20 @@ const Start = ({ city, onDatachange , isloggedIn}) => {
             toast.error("Please enter a valid city name");
             return;
         }
-        else if (isloggedIn) {
+        else {
+            if (isloggedIn) {
                 console.log('Button pressed');
-                onDatachange(location.city)
+                onDatachange(location.city);
                 navigate('/home');  
             } 
             else {
+                // Store city in localStorage for later use
+                localStorage.setItem('selectedCity', location.city);
+                onDatachange(location.city);
                 toast.success("Please register or login to continue");
                 navigate('/register');
             }
+        }
         // fetchData();
 
     }
